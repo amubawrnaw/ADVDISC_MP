@@ -1,10 +1,12 @@
+import java.util.*;
+
 public class Vector{
-	public final int[] dimension;
+	public final int dimension;
 	public double[] vector;
 
 	public Vector(int dimension){
-		dimension = new int(){dimension};
-		vector = new double[dimension];
+		this.dimension = dimension;
+		vector = new double[[dimension];
 		for(int i = 0 ; i < dimension ; i++){
 			dimension[i] = 0;//initiate or something
 		}
@@ -16,4 +18,23 @@ public class Vector{
 			vector[i] = array[i];
 		}
 	}
+
+	public Vector scale(double scalar){
+		for(int i = 0 ; i < dimension ; i++){
+			vector[i] *= scalar;
+		}
+		return this;
+	}
+
+	public Vector add(Vector addend){
+		if(dimension != addend.dimension) System.out.println("Error lmao");
+		else{
+			for(int i = 0 ; i < dimension ; i++){
+				vector[i] += addend.vector[i];
+			}
+		}
+		return this;
+	}
+	
+
 }
