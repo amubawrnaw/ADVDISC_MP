@@ -41,29 +41,90 @@ public class Vector{
 				constants.dimension!=dimension)
 			return null;
 		for(int i=0;i<dimension;i++){
+//			Vector curr=vectors.get(i);
+//			constants.vector[i]=constants.vector[i]/curr.vector[i];
+//			curr=curr.scale(1/curr.vector[i]);
+//			vectors.set(i, curr);
+//			for(int k=i+1;k<dimension;k++){
+//				Vector tempcurr=new Vector(curr.vector,dimension);
+//				Vector temp=vectors.get(k);
+//				double scalesize=temp.vector[i]*(-1);
+//				constants.vector[k]+=constants.vector[i]*scalesize;
+//				vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+//			}
 			Vector curr=vectors.get(i);
-			constants.vector[i]=constants.vector[i]/curr.vector[i];
-			curr=curr.scale(1/curr.vector[i]);
-			vectors.set(i, curr);
-			for(int k=i+1;k<dimension;k++){
-				Vector tempcurr=new Vector(curr.vector,dimension);
-				Vector temp=vectors.get(k);
-				double scalesize=temp.vector[i]*(-1);
-				constants.vector[k]+=constants.vector[i]*scalesize;
-				vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+			int j=0;
+			while(j<curr.dimension){
+				if(curr.vector[j]!=0)
+					break;
+				
+				j++;
 			}
+			if(j<curr.dimension){
+				constants.vector[i]=constants.vector[i]/curr.vector[j];
+				curr=curr.scale(1/curr.vector[j]);
+				vectors.set(i, curr);
+				for(int k=i+1;k<dimension;k++){
+					Vector tempcurr=new Vector(curr.vector,curr.dimension);
+					Vector temp=vectors.get(k);
+					double scalesize=temp.vector[j]*(-1);
+					constants.vector[k]+=constants.vector[i]*scalesize;
+					vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+				}
+			}else
+				return null;
 		}
 		for(int i=dimension-1;i>=0;i--){
+			
+//			Vector curr=vectors.get(i);
+//			constants.vector[i]=constants.vector[i]/curr.vector[i];
+//			curr=curr.scale(1/curr.vector[i]);
+//			vectors.set(i, curr);
+//			for(int k=i-1;k>=0;k--){
+//				Vector tempcurr=new Vector(curr.vector,dimension);
+//				Vector temp=vectors.get(k);
+//				double scalesize=temp.vector[i]*(-1);
+//				constants.vector[k]+=constants.vector[i]*scalesize;
+//				vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+//			}
 			Vector curr=vectors.get(i);
-			constants.vector[i]=constants.vector[i]/curr.vector[i];
-			curr=curr.scale(1/curr.vector[i]);
-			vectors.set(i, curr);
-			for(int k=i-1;k>=0;k--){
-				Vector tempcurr=new Vector(curr.vector,dimension);
-				Vector temp=vectors.get(k);
-				double scalesize=temp.vector[i]*(-1);
-				constants.vector[k]+=constants.vector[i]*scalesize;
-				vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+			int j=0;
+			while(j<curr.dimension){
+				if(curr.vector[j]!=0)
+					break;
+				
+				j++;
+			}
+			if(j<curr.dimension){
+				constants.vector[i]=constants.vector[i]/curr.vector[j];
+				curr=curr.scale(1/curr.vector[j]);
+				vectors.set(i, curr);
+				for(int k=i-1;k>=0;k--){
+					Vector tempcurr=new Vector(curr.vector,dimension);
+					Vector temp=vectors.get(k);
+					double scalesize=temp.vector[j]*(-1);
+					constants.vector[k]+=constants.vector[i]*scalesize;
+					vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+				}
+//				for(int k=i+1;k<dimension;k++){
+//					Vector tempcurr=new Vector(curr.vector,curr.dimension);
+//					Vector temp=vectors.get(k);
+//					double scalesize=temp.vector[j]*(-1);
+//					vectors.set(k, temp.add(tempcurr.scale(scalesize)));
+//				}
+			}else
+				return null;
+		}
+		for(int i=0;i<dimension;i++){
+			for(int k=0;k<dimension;k++){
+				Vector curr=vectors.get(k);
+				if(curr.vector[i]==1){
+					Collections.swap(vectors, k, i);
+					double temp=constants.vector[i];
+					constants.vector[i]=constants.vector[k];
+					constants.vector[k]= temp;
+					break;
+				}
 			}
 		}
 		return constants;
