@@ -39,6 +39,7 @@ public class Matrix {
 //				for(int j=0;j<temp.dimension;j++)
 //					
 //			}
+
 		for(Vector row_temp:this.matrix){
 			Vector temp=new Vector(other.col_dimension);
 			for(int i=0;i<other.col_dimension;i++){
@@ -46,6 +47,7 @@ public class Matrix {
 				for(int k=0;k<other.row_dimension;k++)
 					temp.vector[i]+=other.matrix.get(k).vector[i]*row_temp.vector[k];		
 			}
+			sol.add(temp);
 		}
 		return new Matrix(sol,other.col_dimension);
 	}
@@ -164,5 +166,17 @@ public class Matrix {
 			}
 		}
 		return inverse;
+	}
+	
+	public Matrix transpose(){
+		List<Vector> transposed = new ArrayList<>();
+		for(int i = 0 ; i < col_dimension ; i++){
+			double[] temp = new double[row_dimension];
+			for(int k = 0 ; k < row_dimension ; k++){
+				temp[k] = matrix.get(k).vector[i];
+			}
+			transposed.add(new Vector(temp, row_dimension));
+		}
+		return new Matrix(transposed, col_dimension);
 	}
 }

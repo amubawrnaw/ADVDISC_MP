@@ -11,9 +11,9 @@ public class MC01{
 
 		//sample input:
 		//2 3
-		//4 2 0
-		//6 9 6
-		//1 2 3
+		//4 2 0 - matrix
+		//6 9 6 - matrix
+		//1 2 3 - constants
 
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
