@@ -97,17 +97,9 @@ public class Matrix {
 	}
 	public Matrix inverse(){
 		Matrix inverse=new Matrix(row_dimension);
-		for(int i = 0 ; i < inverse.row_dimension ; i++){
-			Vector v=inverse.matrix.get(i);
-			for(int k = 0 ; k < inverse.col_dimension ; k++){
-				System.out.print(v.vector[k]+" ");
-			}
-			System.out.println();
-		}
-		System.out.println();
+		
 		if(row_dimension!=col_dimension)
 			return null;
-		System.out.println("Top Bottom");
 		for(int i=0;i<row_dimension;i++){
 			Vector curr=matrix.get(i);
 			int j=0;
@@ -138,25 +130,8 @@ public class Matrix {
 				}
 			}else
 				return null;
-			System.out.println("-------------");
-			for(int a = 0 ; a < this.row_dimension ; a++){
-				Vector v=this.matrix.get(a);
-				for(int b = 0 ; b < this.col_dimension ; b++){
-					System.out.print(v.vector[b]+" ");
-				}
-				System.out.println();
-			}
-			System.out.println();
-			for(int a = 0 ; a < inverse.row_dimension ; a++){
-				Vector v=inverse.matrix.get(a);
-				for(int b = 0 ; b < inverse.col_dimension ; b++){
-					System.out.print(v.vector[b]+" ");
-				}
-				System.out.println();
-			}
-			System.out.println();
+			
 		}
-		System.out.println("Bottom up");
 		
 		for(int i=row_dimension-1;i>=0;i--){
 
@@ -189,23 +164,8 @@ public class Matrix {
 
 			}else
 				return null;
-			System.out.println("-------------");
-			for(int a = 0 ; a < this.row_dimension ; a++){
-				Vector v=this.matrix.get(a);
-				for(int b = 0 ; b < this.col_dimension ; b++){
-					System.out.print(v.vector[b]+" ");
-				}
-				System.out.println();
-			}
-			System.out.println();
-			for(int a = 0 ; a < inverse.row_dimension ; a++){
-				Vector v=inverse.matrix.get(a);
-				for(int b = 0 ; b < inverse.col_dimension ; b++){
-					System.out.print(v.vector[b]+" ");
-				}
-				System.out.println();
-			}
-			System.out.println();
+			
+			
 		}
 		for(int i=0;i<row_dimension;i++){
 			for(int k=0;k<row_dimension;k++){
