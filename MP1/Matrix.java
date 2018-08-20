@@ -97,8 +97,17 @@ public class Matrix {
 	}
 	public Matrix inverse(){
 		Matrix inverse=new Matrix(row_dimension);
+		for(int i = 0 ; i < inverse.row_dimension ; i++){
+			Vector v=inverse.matrix.get(i);
+			for(int k = 0 ; k < inverse.col_dimension ; k++){
+				System.out.print(v.vector[k]+" ");
+			}
+			System.out.println();
+		}
+		System.out.println();
 		if(row_dimension!=col_dimension)
 			return null;
+		System.out.println("Top Bottom");
 		for(int i=0;i<row_dimension;i++){
 			Vector curr=matrix.get(i);
 			int j=0;
@@ -111,7 +120,7 @@ public class Matrix {
 				//constants.vector[i]=constants.vector[i]/curr.vector[j];
 				Vector inv_curr=inverse.matrix.get(i);
 				inv_curr=inv_curr.scale(1/curr.vector[j]);
-				inverse.matrix.set(i, curr);
+				inverse.matrix.set(i, inv_curr);
 				curr=curr.scale(1/curr.vector[j]);
 				matrix.set(i, curr);
 				for(int k=i+1;k<row_dimension;k++){
@@ -121,13 +130,34 @@ public class Matrix {
 					Vector tempinv=inverse.matrix.get(k);
 					double scalesize=temp.vector[j]*(-1);
 					//constants.vector[k]+=constants.vector[i]*scalesize;
-					tempcurr=tempcurr.scale(scalesize);
-					matrix.set(k, temp.add(tempcurr));
-					inverse.matrix.set(k, tempinv.add(tempcurr));
+//					tempcurr=tempcurr.scale(scalesize);
+//					matrix.set(k, temp.add(tempcurr));
+//					inverse.matrix.set(k, tempinv.add(tempcurr));
+					inverse.matrix.set(k, tempinv.add(tempinv_curr.scale(scalesize)));
+					matrix.set(k, temp.add(tempcurr.scale(scalesize)));
 				}
 			}else
 				return null;
+			System.out.println("-------------");
+			for(int a = 0 ; a < this.row_dimension ; a++){
+				Vector v=this.matrix.get(a);
+				for(int b = 0 ; b < this.col_dimension ; b++){
+					System.out.print(v.vector[b]+" ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+			for(int a = 0 ; a < inverse.row_dimension ; a++){
+				Vector v=inverse.matrix.get(a);
+				for(int b = 0 ; b < inverse.col_dimension ; b++){
+					System.out.print(v.vector[b]+" ");
+				}
+				System.out.println();
+			}
+			System.out.println();
 		}
+		System.out.println("Bottom up");
+		
 		for(int i=row_dimension-1;i>=0;i--){
 
 			Vector curr=matrix.get(i);
@@ -141,7 +171,8 @@ public class Matrix {
 			if(j<curr.dimension){
 				Vector inv_curr=inverse.matrix.get(i);
 				inv_curr=inv_curr.scale(1/curr.vector[j]);
-				inverse.matrix.set(i, curr);				curr=curr.scale(1/curr.vector[j]);
+				inverse.matrix.set(i, inv_curr);		
+				curr=curr.scale(1/curr.vector[j]);
 				matrix.set(i, curr);
 				for(int k=i-1;k>=0;k--){
 					Vector tempcurr=new Vector(curr.vector,row_dimension);
@@ -149,13 +180,32 @@ public class Matrix {
 					Vector temp=matrix.get(k);
 					Vector tempinv=inverse.matrix.get(k);
 					double scalesize=temp.vector[j]*(-1);
-					tempcurr=tempcurr.scale(scalesize);
-					inverse.matrix.set(k, tempinv.add(tempcurr));
-					matrix.set(k, temp.add(tempcurr));
+					inverse.matrix.set(k, tempinv.add(tempinv_curr.scale(scalesize)));
+					matrix.set(k, temp.add(tempcurr.scale(scalesize)));
+//					tempcurr=tempcurr.scale(scalesize);
+//					inverse.matrix.set(k, tempinv.add(tempcurr));
+//					matrix.set(k, temp.add(tempcurr));
 				}
 
 			}else
 				return null;
+			System.out.println("-------------");
+			for(int a = 0 ; a < this.row_dimension ; a++){
+				Vector v=this.matrix.get(a);
+				for(int b = 0 ; b < this.col_dimension ; b++){
+					System.out.print(v.vector[b]+" ");
+				}
+				System.out.println();
+			}
+			System.out.println();
+			for(int a = 0 ; a < inverse.row_dimension ; a++){
+				Vector v=inverse.matrix.get(a);
+				for(int b = 0 ; b < inverse.col_dimension ; b++){
+					System.out.print(v.vector[b]+" ");
+				}
+				System.out.println();
+			}
+			System.out.println();
 		}
 		for(int i=0;i<row_dimension;i++){
 			for(int k=0;k<row_dimension;k++){
