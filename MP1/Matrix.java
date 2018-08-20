@@ -121,8 +121,9 @@ public class Matrix {
 					Vector tempinv=inverse.matrix.get(k);
 					double scalesize=temp.vector[j]*(-1);
 					//constants.vector[k]+=constants.vector[i]*scalesize;
-					matrix.set(k, temp.add(tempcurr.scale(scalesize)));
-					inverse.matrix.set(k, tempinv.add(tempinv_curr.scale(scalesize)));
+					tempcurr=tempcurr.scale(scalesize);
+					matrix.set(k, temp.add(tempcurr));
+					inverse.matrix.set(k, tempinv.add(tempcurr));
 				}
 			}else
 				return null;
@@ -148,8 +149,9 @@ public class Matrix {
 					Vector temp=matrix.get(k);
 					Vector tempinv=inverse.matrix.get(k);
 					double scalesize=temp.vector[j]*(-1);
-					inverse.matrix.set(k, tempinv.add(tempinv_curr.scale(scalesize)));
-					matrix.set(k, temp.add(tempcurr.scale(scalesize)));
+					tempcurr=tempcurr.scale(scalesize);
+					inverse.matrix.set(k, tempinv.add(tempcurr));
+					matrix.set(k, temp.add(tempcurr));
 				}
 
 			}else
